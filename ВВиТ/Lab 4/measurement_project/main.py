@@ -1,4 +1,3 @@
-"""Точка входа: анализ измерений из файла."""
 import json
 import logging
 from pathlib import Path
@@ -6,8 +5,6 @@ from pathlib import Path
 from utils.reader import read_numbers, validate_numbers
 from utils.statistics import calculate_average, find_min, find_max
 
-# Каталог, где лежит main.py. Пути строим от него, а не от текущего
-# рабочего каталога, чтобы программа работала при запуске из любого места.
 BASE_DIR = Path(__file__).resolve().parent
 CONFIG_PATH = BASE_DIR / "config.json"
 
@@ -21,7 +18,7 @@ def load_config(config_path):
 def setup_logging(log_file):
     """Настраивает запись журнала в файл."""
     log_path = BASE_DIR / log_file
-    log_path.parent.mkdir(exist_ok=True)      # создать logs/, если нет
+    log_path.parent.mkdir(exist_ok=True)
     logging.basicConfig(
         filename=log_path,
         level=logging.INFO,
@@ -33,7 +30,6 @@ def setup_logging(log_file):
 def main():
     print("Текущий рабочий каталог:", Path.cwd())
 
-    # Конфигурация (логирования ещё нет, поэтому ошибки - через print)
     try:
         config = load_config(CONFIG_PATH)
     except FileNotFoundError:
